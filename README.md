@@ -12,4 +12,9 @@ Lonche App is designed to make scheduling your date nights a breeze, providing y
 - **GCP (Google Cloud Platform):** Using Firebase Store for our NoSQL DB.
 - **Node.js & Express.js:** The backend is powered by Node.js for efficient server-side operations.
 
-This is a Full-Stack Application. A project that I;m building to use for me and wife to have an interactive and fun way to schedule our Date Nights.
+- **Including a .vscode file for EASY backend debugging and breakpoint management**
+- **Vite hidde front-end source code disabled for easier development. (once in production this will change)**
+
+### Vision & Info
+
+This is a Full-Stack Application. A project that I'm building to use for me and wife to have an interactive and fun way to schedule our Date Nights.
