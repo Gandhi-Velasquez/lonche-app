@@ -1,4 +1,4 @@
-# Lonche App
+# Date Night Planner App
 
 Welcome to Lonche App - Your Date Night Scheduler!
 
