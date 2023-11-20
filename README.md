@@ -9,7 +9,8 @@ Lonche App is designed to make scheduling your date nights a breeze, providing y
 - **Date Night Scheduler:** Plan your date nights with ease.
 - **Vue 3:** Utilizing the power of Vue 3 for a dynamic and responsive user interface.
 - **Pinia:** The best storage management, fast and reliable only in pinia.
-- **GCP (Google Cloud Platform):** Using Firebase Store for our NoSQL DB.
+- **GCP (Google Cloud Platform):** Using Firebase Store for our NoSQL DB and Authentication for user management on sign-up.
+- **Email.js:** To provide a welcome message and authentication code for a 2 step-security auth.
 - **Node.js & Express.js:** The backend is powered by Node.js for efficient server-side operations.
 
 - **Including a .vscode file for EASY backend debugging and breakpoint management**
