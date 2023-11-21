@@ -56,7 +56,7 @@ export const useMainStore = defineStore('mainStore', {
       async authStateChanged(user, create) {
           try {
               if (!user) this.currentUser = null
-              console.debug(`MS01:${Boolean(user)}`)
+              console.log(`MS01:${user}`)
               if (user) {
                 console.debug('MS02')
                 let snapshot = await api.get(
@@ -90,5 +90,9 @@ export const useMainStore = defineStore('mainStore', {
           }
       }
     },
-    getters: {},
+    getters: {
+      isLoggedIn: (state) => {
+        return Boolean(state.currentUser);
+      },
+    },
 })

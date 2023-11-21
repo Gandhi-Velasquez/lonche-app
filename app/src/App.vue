@@ -1,12 +1,12 @@
 <template>
   <v-app id="app">
-    <HomeToolBar
+    <LandingNavbar
       v-if="isHomePage"
       :is-mobile="isMobile"
       @go-to="goTo($event)"
       @scroll-to="scrollTo($event)"
       @toggle-drawer="toggleDrawer()"
-    ></HomeToolBar>
+    ></LandingNavbar>
 
     <v-navigation-drawer
       app
@@ -56,7 +56,7 @@ import { ref, computed } from "vue";
 import { useDisplay } from "vuetify";
 import { RouterView, useRoute } from "vue-router";
 import router from "./router/router";
-import HomeToolBar from "./components/common/HomeToolBar.vue";
+import LandingNavbar from "./components/common/LandingNavbar.vue";
 
 const { width, mobile } = useDisplay();
 const drawer = ref(false);

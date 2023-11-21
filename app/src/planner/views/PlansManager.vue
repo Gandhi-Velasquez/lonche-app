@@ -129,6 +129,6 @@ load();
 }
 
 .web-card {
-  width: 75%;
+  width: 90%;
 }
 </style>

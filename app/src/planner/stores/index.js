@@ -100,6 +100,9 @@ export const useAppMainStore = defineStore('appMainStore', {
     getters: {
         userId(state) {
             return state.currentUser
+        },
+        profile(state) {
+            return state.profileData
         }
     },
 })
