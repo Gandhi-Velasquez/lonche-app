@@ -18,7 +18,6 @@ export const useAppMainStore = defineStore('appMainStore', {
         firstname: '',
         lastname: '',
         fullname: '',
-        breadcrumbs: [],
     }),
     actions: {
         setFirebaseApp(fb) {
@@ -90,12 +89,6 @@ export const useAppMainStore = defineStore('appMainStore', {
                 console.error(e)
             }
         },
-        setBreadcrumbs(item, reset = false) {
-            if (reset) {
-                this.breadcrumbs = []
-            }
-            this.breadcrumbs.push(item)
-        }
     },
     getters: {
         userId(state) {
