@@ -3,7 +3,7 @@
     app
     color="white"
     :class="isMobile ? 'px-4' : 'px-16'"
-    scroll-behavior="elevate"
+    :elevation="0"
     fixed
     width="auto"
   >

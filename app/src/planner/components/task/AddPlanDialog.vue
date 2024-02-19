@@ -1,6 +1,5 @@
 <template>
-  <v-sheet :style="borderedCard">
-    <v-card>
+    <v-card :elevation="0" style="border-radius: 15px;">
       <v-card-title><p class="text-h5 mt-2">New Plan</p></v-card-title>
       <v-card-text>
         <p>Title:</p>
@@ -26,6 +25,7 @@
           class="text-capitalize mr-1"
           variant="outlined"
           color="secondary"
+          size="large"
           rounded
           @click="cancel"
           >Cancel</v-btn
@@ -34,6 +34,7 @@
           color="secondary"
           variant="flat"
           rounded
+          size="large"
           class="text-capitalize mr-4"
           :loading="loading"
           :disabled="!newPlan.title"
@@ -43,7 +44,6 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-sheet>
 </template>
 <script setup>
 import { onMounted, defineComponent, ref, computed } from "vue";
@@ -99,6 +99,6 @@ const cancel = () => {
 }
 
 input[type="text"]:focus {
-  outline: 3px solid #9acde0;
+  outline: 3px solid #009ed7;
 }
 </style>

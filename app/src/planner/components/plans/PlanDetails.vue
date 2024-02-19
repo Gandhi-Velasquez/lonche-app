@@ -25,7 +25,6 @@ const planId = computed(() => {
 });
 
 const goBack = () => {
-  appMainStore.breadcrumbs.pop();
   router.go(-1);
 };
 </script>

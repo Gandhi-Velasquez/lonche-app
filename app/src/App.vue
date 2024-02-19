@@ -14,13 +14,12 @@
       v-if="isMobile"
       location="top"
       color="background"
-      style="height: 50%"
     >
       <div
         v-if="isMobile"
         class="d-flex flex-column justify-center align-center"
       >
-        <div class="d-flex drawer-footer flex-column">
+        <div class="d-flex flex-column justify-end">
           <v-btn
             color="secondary"
             variant="outlined"
@@ -106,10 +105,6 @@ const toggleDrawer = () => {
 
 #nav {
   padding: 30px;
-}
-
-.drawer-footer {
-  position: absolute;
 }
 
 .cta-btn {

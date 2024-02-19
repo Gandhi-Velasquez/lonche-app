@@ -20,6 +20,7 @@
     "vite-plugin-require": "^1.1.10",
     "vite-plugin-vuetify": "^1.0.0",
     "vue": "^3.2.41",
+    "vue-picture-cropper": "^0.7.0",
     "vuedraggable": "^4.1.0",
     "vuetify": "^3.3.16"
   },

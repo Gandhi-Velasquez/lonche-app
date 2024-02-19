@@ -1,51 +1,52 @@
 <template>
-    <v-container>
-      <v-row>
-        <v-col :cols="isMobile ? '6' : '9'" class="d-flex">
-          <h2 class="mt-4 mb-6">Your Plans</h2>
-        </v-col>
-        <v-col :cols="isMobile ? '6' : '3'" :class="isMobile ? 'd-flex justify-end' : ''">
-          <v-btn
-            color="secondary"
-            :elevation="0"
-            size="large"
-            class="text-capitalize text--white my-2"
-            rounded
-            @click="openAddDialog"
-          >
-            <p class="text-white">Add Plan</p>
-          </v-btn>
-        </v-col>
-      </v-row>
-  
-      <v-row>
-        <v-col v-for="plan in plansList" :key="plan.id" cols="12">
-            <v-hover>
-                <template v-slot:default="{ isHovering, props }">
-                    <v-card @click="selectPlan(plan)" v-bind="props" class="custom-card" :class="{ 'card-bordered': isHovering && !isMobile, 'mobile-card': isMobile, 'web-card': !isMobile }" elevation="0">
-                        <v-card-title>{{ plan.data.title }}</v-card-title>
-                        <v-card-text>{{ plan.data.description }}</v-card-text>
-                    </v-card>
-                </template>
-            </v-hover>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-dialog
-      v-model="addPlanDialog"
-      width="400"
-      transition="dialog-bottom-transition"
-      persistent
-      :fullscreen="isMobile"
+  <v-container>
+    <v-row>
+      <v-col :cols="isMobile ? '6' : '9'" class="d-flex py-0">
+        <h2 class="mt-4 mb-6">Your Plans</h2>
+      </v-col>
+      <v-col :cols="isMobile ? '6' : '3'" class="d-flex py-0" :class="isMobile ? 'justify-end' : 'justify-center'">
+        <v-btn
+          color="secondary"
+          :elevation="0"
+          size="large"
+          class="text-capitalize text--white my-2"
+          rounded
+          @click="openAddDialog"
+        >
+          <p class="text-white">Add Plan</p>
+        </v-btn>
+      </v-col>
+    </v-row>
+
+    <v-row :class="isMobile ? '' : 'mr-8'">
+      <v-col cols="12" class="plan-list-col">
+        <div v-for="plan in plansList" :key="plan.id" class="plan-list-item">
+          <v-hover>
+            <template v-slot:default="{ isHovering, props }">
+              <v-card @click="selectPlan(plan)" v-bind="props" class="custom-card" :class="{ 'card-bordered': isHovering && !isMobile, 'mobile-card': isMobile, 'web-card': !isMobile }">
+                <v-card-title>{{ plan.data.title }}</v-card-title>
+                <v-card-text>{{ plan.data.description }}</v-card-text>
+              </v-card>
+            </template>
+          </v-hover>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-dialog
+    v-model="addPlanDialog"
+    width="400"
+    persistent
+    :elevation="0"
+  >
+    <AddPlanComponent
+      :is-mobile="isMobile"
+      :loading="addingPlan.loading"
+      @cancel="cancelAddPlan"
+      @add="doAddPlan($event)"
     >
-      <AddPlanComponent
-        :is-mobile="isMobile"
-        :loading="addingPlan.loading"
-        @cancel="cancelAddPlan"
-        @add="doAddPlan($event)"
-      >
-      </AddPlanComponent>
-    </v-dialog>
+    </AddPlanComponent>
+  </v-dialog>
 </template>
 <script setup>
 import { usePlanStore } from '../stores/planStore';
@@ -80,8 +81,7 @@ const addingPlan = ref({
 });
 
 const selectPlan = (plan) => {
-    appMainStore.setBreadcrumbs(plan.data.title)
-    router.push(`/app/plans/${plan.id}`)
+  router.push(`/app/plans/${plan.id}`)
 }
 
 const openAddDialog = () => {
@@ -113,6 +113,7 @@ async function load() {
 
 load();
 </script>
+
 <style scoped>
 .custom-card {
   margin: auto;
@@ -131,4 +132,13 @@ load();
 .web-card {
   width: 90%;
 }
+
+.plan-list-col {
+  height: 70vh;
+  overflow-y: auto;
+}
+
+.plan-list-item {
+  margin-bottom: 8px;
+};
 </style>

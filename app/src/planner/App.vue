@@ -19,8 +19,8 @@
       <v-list>
         <v-list-item
           v-for="(item, i) in allNav"
+          link
           :key="i"
-          link 
           color="secondary"
           rounded="shaped"
           class="mx-2 my-2"
@@ -41,9 +41,6 @@
         variant="text"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>
-        <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
-      </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -72,39 +69,6 @@
       </v-container>
     </v-main>
     <!--  -->
-    <v-dialog
-      v-model="addPlanDialog"
-      width="400"
-      transition="dialog-bottom-transition"
-      persistent
-      :fullscreen="isMobile"
-    >
-      <AddPlanComponent
-        :is-mobile="isMobile"
-        :loading="addingPlan.loading"
-        @cancel="cancelAddPlan"
-        @add="doAddPlan($event)"
-      >
-      </AddPlanComponent>
-    </v-dialog>
-    <v-dialog
-      v-model="editTaskDialog"
-      width="400"
-      transition="dialog-bottom-transition"
-      persistent
-      :fullscreen="isMobile"
-    >
-      <EditTaskComponent
-        :task="selectedTask"
-        :task-groups="null"
-        :is-mobile="isMobile"
-        :updating-loading="updatingTask.loading"
-        :deleting-loading="deletingTask.loading"
-        @cancel="cancelEditTask"
-        @update="updateTask(selectedTask, 'update')"
-        @delete="doDeleteTask(selectedTask)"
-      ></EditTaskComponent>
-    </v-dialog>
     <v-snackbar v-model="addingPlan.added" color="success" timeout="3000">
       <div class="d-flex align-center">
         <v-icon>mdi-check-circle</v-icon>
@@ -147,8 +111,6 @@ import { useAppMainStore} from "./stores/index.js";
 import { useMainStore } from "../stores/Store";
 import { useDisplay } from "vuetify";
 import { RouterView } from "vue-router";
-import EditTaskComponent from "@/planner/components/task/EditTaskDialog.vue";
-import AddPlanComponent from "@/planner/components/task/addPlanDialog.vue";
 
 const { width, mobile } = useDisplay();
 
@@ -158,34 +120,17 @@ const isMobile = computed(() => {
 
 const widthStyle = computed(() => {
   let w = width.value * 0.8
-  return isMobile.value ? w : '300';
+  return isMobile.value ? w : '280';
 });
 
-const selectedPlan = ref({
-  id: '',
-  data: {}
-});
-
-const hasPlan = computed(() => {
-  return selectedPlan.value.id === '' ? false : true;
-});
-
-const planStore = usePlanStore();
 const loginStore = useLoginStore();
 const appMainStore = useAppMainStore()
-
-const breadcrumbs = computed(() => {
-  return appMainStore.breadcrumbs
-})
 
 const drawer = ref(true);
 
 const getTabPath = (item) => {
-  //appMainStore.setBreadcrumbs(item.title, true)
   return `/app/${item.path}`
 }
-
-const addPlanDialog = ref(false);
 
 const allNav = ref([
   {
@@ -200,97 +145,20 @@ const allNav = ref([
   },
 ]);
 
-const openTaskDialog = () => {
-  addPlanDialog.value = true;
-};
-
 const addingPlan = ref({
   loading: false,
   added: false,
 });
-
-const cancelAddPlan = () => {
-  addPlanDialog.value = false;
-};
-
-const doAddPlan = async (newPlan) => {
-  addingPlan.value.loading = true;
-  let plan = {};
-  if (newPlan.value.title !== "") plan.title = newPlan.value.title;
-  plan.description = newPlan.value.description;
-  let r = await planStore.addPlan(plan);
-  if (r.status === "added") {
-    addingPlan.value.loading = false;
-    addPlanDialog.value = false;
-    addingPlan.value.added = true;
-  }
-};
-
-const editTaskDialog = ref(false);
-
-const selectedTask = ref({});
-
-const editTask = (task) => {
-  selectedTask.value = task;
-  editTaskDialog.value = true;
-};
-
-const cancelEditTask = () => {
-  editTaskDialog.value = false;
-};
-
-// const updateTask = async (item, action) => {
-//   updatingTask.value.loading = true;
-//   let r = await taskStore.updateTask(item.id, action);
-//   if (r.status === "updated") {
-//     updatingTask.value.loading = false;
-//     editTaskDialog.value = false;
-//     updatingTask.value.added = true;
-//   }
-// };
 
 const updatingTask = ref({
   loading: false,
   added: false,
 });
 
-// const doDeleteTask = async (item) => {
-//   deletingTask.value.loading = true;
-//   let r = await taskStore.deleteTask(item.id);
-//   if (r.status === "deleted") {
-//     deletingTask.value.loading = false;
-//     editTaskDialog.value = false;
-//     deletingTask.value.deleted = true;
-//   }
-// };
-
 const deletingTask = ref({
   loading: false,
   deleted: false,
 });
-
-//const processingAction = (item) => {
-//  return (
-//    updatingTask.value.processing[getProcessingKey(item)] ||
-//    deletingTask.value.processing[getProcessingKey(item)]
-//  );
-//};
-//
-//const getProcessingKey = (item) => {
-//  let key = item.id + "/" + item.data.title;
-//  return key;
-//};
-
-// const setSelectedPlan = (plan) => {
-//   if (isMobile.value) {
-//     drawer.value = false
-//   }
-//   selectedPlan.value = plan
-// }
-
-const getSelectedTab = (item) => {
-  console.log(item.path)
-}
 
 const doLogout = async () => {
   console.log('Login out')
